@@ -1,5 +1,4 @@
 // Don't let the regex party get out of control.
-
 function regret(name, input){
   if(!regret.patterns[name]){
     throw new Error('Unknown pattern `' + name + '`');
