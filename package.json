@@ -1,0 +1,23 @@
+{
+  "name": "regret",
+  "description": "organize regexes for your app, non-shittily",
+  "author": "Lucas Hrabovsky <hrabovsky.lucas@gmail.com> (http://imlucas.com)",
+  "version": "0.0.1",
+  "dependencies": {},
+  "homepage": "http://github.com/imlucas/node-regret",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/imlucas/node-regret.git"
+  },
+  "keywords": [
+    "regex",
+    "non-shittily"
+  ],
+  "scripts": {
+    "test": "mocha"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "mocha": "~1.17.1"
+  }
+}
