@@ -55,7 +55,8 @@ object with the captures.  See you in hell `matches[1]` `matches[2]`!
 
 ## todo
 
-- make `regret-usual-suspects` that has all the common crud,  like
+- [ ] look for and automatically add `regrets` from `package.json`
+- [ ] make `regret-usual-suspects` that has all the common crud,  like
   [commonregexjs](https://github.com/talyssonoc/commonregexjs) with phone numbers,
   email (fuck yes!), and other things you just shouldn't have to think about
 
