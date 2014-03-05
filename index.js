@@ -22,13 +22,18 @@ function regret(name, input){
     matcher = matchers.shift();
     matches = matcher.pattern.exec(input);
 
-    if(!matches) continue;
-      res = {};
-      matches.shift();
-      matches.map(function(p, i){
-        res[matcher.captures[i]] = p;
-      });
-      break;
+    if(!matches){
+      continue;
+    }
+    res = {};
+
+    // pop off the input string
+    matches.shift();
+    res._matcher_name = matcher.name;
+    matches.map(function(p, i){
+      res[matcher.captures[i]] = p;
+    });
+    break;
   }
   return res;
 }
@@ -51,8 +56,9 @@ regret.add = function(name, pattern, example, captures){
 
   regret.matchers[name] = {
     example: example,
-    captures: captures
     pattern: new RegExp(source),
+    captures: captures,
+    name: name
   };
   return regret;
 };
