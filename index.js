@@ -51,8 +51,8 @@ regret.add = function(name, pattern, example, captures){
 
   regret.matchers[name] = {
     example: example,
-    pattern: new RegExp(source, 'g'),
     captures: captures
+    pattern: new RegExp(source),
   };
   return regret;
 };
