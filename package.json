@@ -2,7 +2,7 @@
   "name": "regret",
   "description": "organize regexes for your app, non-shittily",
   "author": "Lucas Hrabovsky <hrabovsky.lucas@gmail.com> (http://imlucas.com)",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "dependencies": {},
   "homepage": "http://github.com/imlucas/node-regret",
   "repository": {
