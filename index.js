@@ -1,47 +1,64 @@
+"use strict";
+
 // Don't let the regex party get out of control.
 function regret(name, input){
-  if(!regret.patterns[name]){
-    throw new Error('Unknown pattern `' + name + '`');
+  var matchers, res = null, re, matches, matcher;
+  if(typeof name.exec === 'function'){
+    matchers = Object.keys(regret.matchers).filter(function(m){
+      return name.test(m);
+    }).map(function(m){
+      return regret.matchers[m];
+    });
   }
-  var pattern = regret.patterns[name],
-    re = pattern.pattern,
-    res = {},
-    matches = re.exec(input);
-
-  if(matches === null){
-    return null;
+  else {
+    matchers = regret.matchers[name] ? [regret.matchers[name]] : [];
   }
 
-  matches.shift();
-  matches.map(function(p, i){
-    res[pattern.captures[i]] = p;
-  });
-  re.lastIndex = 0;
+  if(matchers.length === 0){
+    return undefined;
+  }
+
+  while(matchers.length > 0){
+    matcher = matchers.shift();
+    matches = matcher.pattern.exec(input);
+
+    if(!matches) continue;
+      res = {};
+      matches.shift();
+      matches.map(function(p, i){
+        res[matcher.captures[i]] = p;
+      });
+      break;
+  }
   return res;
 }
-regret.patterns = {};
+regret.matchers = {};
 
 regret.add = function(name, pattern, example, captures){
   captures = captures || [];
 
   var source = pattern.source,
-    matcher = new RegExp('{{([' + Object.keys(regret.patterns).join('|') + ']+)}}', 'g');
+    matcher = new RegExp('{{([' + Object.keys(regret.matchers).join('|') + ']+)}}', 'g');
 
   source = source.replace(matcher, function(match, name, offset){
-    if(!regret.patterns[name]){
+    if(!regret.matchers[name]){
       throw new Error('Unregistered template `' + name + '`');
     }
 
     return match.replace(new RegExp('{{' + name + '}}', 'g'),
-      regret.patterns[name].pattern.source);
+      regret.matchers[name].pattern.source);
   });
 
-  regret.patterns[name] = {
-    'example': example,
-    'pattern': new RegExp(source, 'g'),
-    'captures': captures
+  regret.matchers[name] = {
+    example: example,
+    pattern: new RegExp(source, 'g'),
+    captures: captures
   };
-  return regret.patterns[name];
+  return regret;
+};
+
+regret.clear = function(){
+  regret.matchers = {};
 };
 
 module.exports = regret;
