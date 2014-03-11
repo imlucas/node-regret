@@ -29,7 +29,6 @@ function regret(name, input){
 
     // pop off the input string
     matches.shift();
-    res._matcher_name = matcher.name;
     matches.map(function(p, i){
       res[matcher.captures[i]] = p;
     });
